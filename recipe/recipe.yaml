@@ -14,7 +14,7 @@ build:
   number: 0
   script: |
     make PREFIX="${PREFIX}" OPT_CFLAGS="-DACPI_PACKED_POINTERS_NOT_SUPPORTED"
-    make PREFIX="${PREFIX}" INSTALL="${BUILD_PREFIX}/bin/install" INSTALLFLAGS="-m 555 -s" install
+    make PREFIX="${PREFIX}" INSTALL="${BUILD_PREFIX}/bin/install" INSTALLFLAGS="-c --strip-program=${STRIP} -m 555 -s" install
   skip: not unix
 
 requirements:
