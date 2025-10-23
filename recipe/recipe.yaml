@@ -1,16 +1,14 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 context:
-  version: "2025_04_04"
+  version: "2025_08_07"
 
 package:
   name: acpica-tools
   version: ${{ version | replace('_', '') }}
 
 source:
-  url: https://github.com/acpica/acpica/archive/refs/tags/R${{ version }}.tar.gz
-  sha256: 9991ec103b3660d17715780406ee7409f705cf87ac55e9a32374affe1a6f275a
-  patches:
-    - patches/buggy-acpicf.h.patch
+  url: https://github.com/acpica/acpica/archive/refs/tags/${{ version | replace('_', '') }}.tar.gz
+  sha256: 971df1f78944e5f3bb314209acbf8a127c0db34b4a3c26e011b4076eba1c2bbc
 
 build:
   number: 0
