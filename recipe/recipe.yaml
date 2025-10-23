@@ -19,12 +19,12 @@ build:
 
 requirements:
   build:
+    - make
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - bison
     - flex
     - m4
-    - make
 
 tests:
   - script: acpihelp -u
