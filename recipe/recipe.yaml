@@ -13,13 +13,14 @@ source:
 build:
   number: 0
   script: |
-    make PREFIX=$PREFIX OPT_CFLAGS="-DACPI_PACKED_POINTERS_NOT_SUPPORTED"
-    make install PREFIX=$PREFIX
+    make PREFIX="${PREFIX}" OPT_CFLAGS="-DACPI_PACKED_POINTERS_NOT_SUPPORTED"
+    make PREFIX="${PREFIX}" INSTALL="${BUILD_PREFIX}/bin/install" INSTALLFLAGS="-m 555 -s" install
   skip: not unix
 
 requirements:
   build:
     - make
+    - coreutils
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - bison
