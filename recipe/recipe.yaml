@@ -4,10 +4,10 @@ context:
 
 package:
   name: acpica-tools
-  version: ${{ version | replace('_', '') }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/acpica/acpica/archive/refs/tags/${{ version | replace('_', '') }}.tar.gz
+  url: https://github.com/acpica/acpica/archive/refs/tags/${{ version }}.tar.gz
   sha256: 6f77bd550655183c63f0a307fb0f29ef6140b1f522d61783a16b2af8d9149a0d
 
 build:
