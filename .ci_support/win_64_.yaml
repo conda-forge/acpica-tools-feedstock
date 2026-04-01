@@ -1,0 +1,14 @@
+c_compiler:
+- vs2022
+c_compiler_version:
+- '19'
+c_stdlib:
+- vc
+c_stdlib_version:
+- '14.3'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+target_platform:
+- win-64

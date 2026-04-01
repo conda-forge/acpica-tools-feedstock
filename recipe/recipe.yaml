@@ -9,26 +9,63 @@ package:
 source:
   url: https://github.com/acpica/acpica/archive/refs/tags/${{ version }}.tar.gz
   sha256: 6f77bd550655183c63f0a307fb0f29ef6140b1f522d61783a16b2af8d9149a0d
+  patches:
+    - patches/0001-fix-mingw64-vsnprintf-conflict.patch
 
 build:
   number: 0
-  script: |
-    make PREFIX="${PREFIX}" OPT_CFLAGS="-DACPI_PACKED_POINTERS_NOT_SUPPORTED"
-    make PREFIX="${PREFIX}" INSTALL="${BUILD_PREFIX}/bin/install" INSTALLFLAGS="-c --strip-program=${STRIP} -m 555 -s" install
-  skip: not unix
+  script:
+    - if: not win
+      then: |
+        make PREFIX="${PREFIX}" OPT_CFLAGS="-DACPI_PACKED_POINTERS_NOT_SUPPORTED"
+        make PREFIX="${PREFIX}" INSTALL="${BUILD_PREFIX}/bin/install" INSTALLFLAGS="-c --strip-program=${STRIP} -m 555 -s" install
+    - if: win
+      then: |
+        set MSYSTEM=MINGW64
+        set "UNIX_PREFIX=%LIBRARY_PREFIX:\=/%"
+        set MAKE_FLAGS=HOST=_MinGW NOWERROR=TRUE PROGS="acpibin acpihelp acpixtract iasl" OPT_CFLAGS="-DACPI_PACKED_POINTERS_NOT_SUPPORTED"
+        make PREFIX="%UNIX_PREFIX%" %MAKE_FLAGS%
+        if errorlevel 1 exit /b 1
+        make PREFIX="%UNIX_PREFIX%" %MAKE_FLAGS% install
+        if errorlevel 1 exit /b 1
+        for %%p in (acpibin acpihelp acpixtract iasl) do copy /y "%LIBRARY_PREFIX%\bin\%%p" "%LIBRARY_PREFIX%\bin\%%p.exe"
+        if errorlevel 1 exit /b 1
 
 requirements:
   build:
-    - make
-    - coreutils
-    - ${{ compiler('c') }}
-    - ${{ stdlib('c') }}
-    - bison
-    - flex
-    - m4
+    - if: not win
+      then: make
+    - if: win
+      then: m2-make
+    - if: not win
+      then: coreutils
+    - if: win
+      then: m2-coreutils
+    - if: not win
+      then: ${{ compiler('c') }}
+    - if: not win
+      then: ${{ stdlib('c') }}
+    - if: win
+      then: m2w64-gcc
+    - if: not win
+      then: bison
+    - if: win
+      then: m2-bison
+    - if: not win
+      then: flex
+    - if: win
+      then: m2-flex
+    - if: not win
+      then: m4
+    - if: win
+      then: m2-m4
 
 tests:
-  - script: acpihelp -u
+  - script:
+      - if: not win
+        then: acpihelp -u
+      - if: win
+        then: acpihelp.exe -u
 
 about:
   license: Intel-ACPI OR GPL-2.0-only
