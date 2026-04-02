@@ -13,7 +13,7 @@ source:
     - patches/0001-fix-mingw64-vsnprintf-conflict.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - if: not win
       then: |
