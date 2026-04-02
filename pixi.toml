@@ -5,7 +5,7 @@
 
 [workspace]
 name = "acpica-tools-feedstock"
-version = "3.54.1"  # conda-smithy version used to generate this file
+version = "3.58.1"  # conda-smithy version used to generate this file
 description = "Pixi configuration for conda-forge/acpica-tools-feedstock"
 authors = ["@conda-forge/acpica-tools"]
 channels = ["conda-forge"]
@@ -53,6 +53,12 @@ description = "Build acpica-tools-feedstock with variant osx_arm64_ directly (wi
 [tasks."inspect-osx_arm64_"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_.yaml"
 description = "List contents of acpica-tools-feedstock packages built for variant osx_arm64_"
+[tasks."build-win_64_"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_.yaml"
+description = "Build acpica-tools-feedstock with variant win_64_ directly (without setup scripts)"
+[tasks."inspect-win_64_"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_.yaml"
+description = "List contents of acpica-tools-feedstock packages built for variant win_64_"
 
 [feature.smithy.dependencies]
 conda-smithy = "*"
