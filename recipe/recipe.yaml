@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 context:
-  version: "20260408"
+  version: "20260930"
 
 package:
   name: acpica-tools
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/acpica/acpica/archive/refs/tags/${{ version }}.tar.gz
-  sha256: ddc5d3e0f54030e2348484fff681861a161efb4e388e20631209574e7884ad39
+  sha256: feddab0f42f1e01afa3b8ec04f3aaef5e61e891225b8dc8776953ca9f3df1449
   patches:
     - patches/0001-fix-mingw64-vsnprintf-conflict.patch
 
@@ -53,8 +53,10 @@ tests:
         then: acpihelp -u
         else: acpihelp.exe -u
 about:
-  license: Intel-ACPI OR GPL-2.0-only
-  license_file: LICENSE
+  license: BSD-3-Clause-acpica OR GPL-2.0-only
+  license_file:
+    - LICENSE.BSD-3-Clause
+    - LICENSE.GPL-2.0-only
   summary: OS-independent implementation of the ACPI specification
   description: |
     ACPICA (ACPI Component Architecture) project provides an OS-independent
