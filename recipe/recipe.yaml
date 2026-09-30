@@ -53,8 +53,10 @@ tests:
         then: acpihelp -u
         else: acpihelp.exe -u
 about:
-  license: Intel-ACPI OR GPL-2.0-only
-  license_file: LICENSE
+  license: BSD-3-Clause-acpica OR GPL-2.0-only
+  license_file:
+    - LICENSE.BSD-3-Clause
+    - LICENSE.GPL-2.0-only
   summary: OS-independent implementation of the ACPI specification
   description: |
     ACPICA (ACPI Component Architecture) project provides an OS-independent
